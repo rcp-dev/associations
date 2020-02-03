@@ -4,14 +4,6 @@ mongoose.connect("mongodb://localhost/blog_demo", {
     useUnifiedTopology: true
 });
 
-//USER - email, name
-var userSchema = new mongoose.Schema({
-    email: String,
-    name: String
-});
-
-var User = mongoose.model("User", userSchema);
-
 //POST - title, content
 var postSchema = new mongoose.Schema({
     title: String,
@@ -20,29 +12,63 @@ var postSchema = new mongoose.Schema({
 
 var Post = mongoose.model("Post", postSchema);
 
+//USER - email, name
+var userSchema = new mongoose.Schema({
+    email: String,
+    name: String,
+    posts: [postSchema]
+});
 
-// var newUser = new User({
-//     email: "charlie@brown.edu",
-//     name: "Charlie Brown"
+var User = mongoose.model("User", userSchema);
+
+
+
+
+//  var newUser = new User({
+//      email: "hermione@hogwarts.edu",
+//      name: "Hermione Granger"
+//  });
+
+//  newUser.posts.push({
+//      title: "How to make polyjuice",
+//      content: "A;SDKFASD;FKLASJDFASKDFAJ;SDKFJ"
+//  });
+
+//  newUser.save(function(err, user){
+//      if(err){
+//          console.log(err);
+//      } else {
+//          console.log(user);
+//      }
+//  });
+
+// var newPost = new Post({
+//     title: "Reflections on Apples",
+//     content: "They are delicious"
 // });
 
-// newUser.save(function(err, user){
+// newPost.save(function(err, post){
 //     if(err){
-//         console.log(err);
-//     } else {
-//         console.log(user);
+//         console.log(err)
+//     }else {
+//         console.log(post)
 //     }
 // });
 
-var newPost = new Post({
-    title: "Reflections on Apples",
-    content: "They are delicious"
-});
-
-newPost.save(function(err, post){
+User.findOne({name: "Hermione Granger"}, function(err, user){
     if(err){
-        console.log(err)
-    }else {
-        console.log(post)
+        console.log(err);
+    } else {
+        user.posts.push({
+            title: "fa;slkdfjasdfk",
+            content: "asdlfk,as;df, asdfkas;dflkj, a;sldkfjasdf"
+        });
+        user.save(function(err, user){
+            if(err){
+                console.log(err);
+            } else {
+                console.log(user);
+            }
+        });
     }
 });
