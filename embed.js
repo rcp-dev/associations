@@ -57,7 +57,7 @@ var User = mongoose.model("User", userSchema);
 
 User.findOne({name: "Hermione Granger"}, function(err, user){
     if(err){
-        console.log(err);
+        //console.log(err);
     } else {
         user.posts.push({
             title: "fa;slkdfjasdfk",
